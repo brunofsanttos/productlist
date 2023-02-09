@@ -17,8 +17,6 @@ import static com.bs.listadeprodutos.catalog.ErrorCatalog.*;
 public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
-
-
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity salvarEmpresa(@RequestBody EmpresaDto empresaDto) {
         try {

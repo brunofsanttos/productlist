@@ -5,7 +5,7 @@ services:
 
   db:
     image: postgres
-    container_name: container_listadeprodutos
+    container_name: db-lista-de-produtos
     restart: always
     ports:
       - 5432:5432

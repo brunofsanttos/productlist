@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TratamentoDeTexto {
-
     public String RemoveCaracterEspecial(String texto){
         texto = texto.replace(".", "");
         texto = texto.replace("-", "");
@@ -12,5 +11,4 @@ public class TratamentoDeTexto {
 
         return texto;
     }
-
 }
