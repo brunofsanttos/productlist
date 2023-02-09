@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonSerialize
-public class EmpresaDto {
+public class CompanyDto {
     private String idEmpresa;
     private String razaoSocial;
     private String nomeFantasia;

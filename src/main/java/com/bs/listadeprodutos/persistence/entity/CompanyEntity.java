@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmpresaEntity {
+public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idEmpresa;
