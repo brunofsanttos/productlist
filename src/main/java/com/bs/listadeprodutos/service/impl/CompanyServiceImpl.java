@@ -56,7 +56,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new Exception(ERRO_NO_CNPJ);
         }
 
-        if(companyDto.getRazaoSocial() == null || companyDto.getRazaoSocial().isEmpty()){
+        if(companyDto.getCorporateName() == null || companyDto.getCorporateName().isEmpty()){
             throw new Exception(ERRO_RAZAO_SOCIAL);
         }
 
@@ -64,7 +64,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new Exception(ERRO_EMAIL);
         }
 
-        if(companyRepository.existsByCnpj(companyDto.getCnpj()) || companyRepository.existsByEmail(companyDto.getEmail()) || companyRepository.existsByRazaoSocial(companyDto.getRazaoSocial())){
+        if(companyRepository.existsByCnpj(companyDto.getCnpj()) || companyRepository.existsByEmail(companyDto.getEmail()) || companyRepository.existsByCorporateName(companyDto.getCorporateName())){
             throw new Exception(CADASTRO_EXISTENTE);
         }
     }
