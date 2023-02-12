@@ -24,13 +24,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private TextTreatment tratamentoDeTexto;
+    private TextTreatment textTreatment;
 
     @Override
     public StandardReturn save(CompanyDto companyDto)throws Exception {
         this.fieldValidation(companyDto);
 
-        companyDto.setCnpj(tratamentoDeTexto.RemoveCaracterEspecial(companyDto.getCnpj()));
+        companyDto.setCnpj(textTreatment.CpfCnpjTreatment(companyDto.getCnpj()));
 
         CompanyEntity companyEntity = modelMapper.map(companyDto, CompanyEntity.class);
         companyEntity = companyRepository.save(companyEntity);

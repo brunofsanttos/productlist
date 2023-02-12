@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TextTreatment {
-    public String RemoveCaracterEspecial(String texto){
+    public String CpfCnpjTreatment(String texto){
         texto = texto.replace(".", "");
         texto = texto.replace("-", "");
         texto = texto.replace("/", "");
