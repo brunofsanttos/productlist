@@ -1,9 +1,9 @@
 package com.bs.listadeprodutos.service;
 
 import com.bs.listadeprodutos.dto.CompanyDto;
-import com.bs.listadeprodutos.dto.RetornoPadraoDto;
+import com.bs.listadeprodutos.dto.StandardReturn;
 
 public interface CompanyService {
-    RetornoPadraoDto save(CompanyDto empresaDto) throws Exception;
-    RetornoPadraoDto findById(String id)throws Exception;
+    StandardReturn save(CompanyDto empresaDto) throws Exception;
+    StandardReturn findById(String id)throws Exception;
 }

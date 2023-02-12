@@ -1,11 +1,11 @@
 package com.bs.listadeprodutos.service.impl;
 
 import com.bs.listadeprodutos.dto.CompanyDto;
-import com.bs.listadeprodutos.dto.RetornoPadraoDto;
+import com.bs.listadeprodutos.dto.StandardReturn;
 import com.bs.listadeprodutos.persistence.entity.CompanyEntity;
 import com.bs.listadeprodutos.persistence.repository.CompanyRepository;
 import com.bs.listadeprodutos.service.CompanyService;
-import com.bs.listadeprodutos.util.TratamentoDeTexto;
+import com.bs.listadeprodutos.util.TextTreatment;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +24,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private TratamentoDeTexto tratamentoDeTexto;
+    private TextTreatment tratamentoDeTexto;
 
     @Override
-    public RetornoPadraoDto save(CompanyDto companyDto)throws Exception {
+    public StandardReturn save(CompanyDto companyDto)throws Exception {
         this.fieldValidation(companyDto);
 
         companyDto.setCnpj(tratamentoDeTexto.RemoveCaracterEspecial(companyDto.getCnpj()));
@@ -35,11 +35,11 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyEntity companyEntity = modelMapper.map(companyDto, CompanyEntity.class);
         companyEntity = companyRepository.save(companyEntity);
 
-        return new RetornoPadraoDto(SALVO, modelMapper.map(companyEntity, CompanyDto.class));
+        return new StandardReturn(SALVO, modelMapper.map(companyEntity, CompanyDto.class));
     }
 
     @Override
-    public RetornoPadraoDto findById(String id) throws Exception {
+    public StandardReturn findById(String id) throws Exception {
         if (id == null || id.isEmpty()) {
             throw new Exception(ERRO_ID);
         }
@@ -48,7 +48,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .findById(UUID
                         .fromString(id)).get();
 
-        return new RetornoPadraoDto(RETORNO_DA_CONSULTA, modelMapper.map(empresaEntity, CompanyDto.class));
+        return new StandardReturn(RETORNO_DA_CONSULTA, modelMapper.map(empresaEntity, CompanyDto.class));
     }
 
     private void fieldValidation(CompanyDto companyDto)throws Exception{

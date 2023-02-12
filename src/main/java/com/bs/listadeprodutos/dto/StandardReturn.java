@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonSerialize
-public class RetornoPadraoDto {
+public class StandardReturn {
     private String menssagen;
     private Object object;
 }
