@@ -16,9 +16,9 @@ import java.util.UUID;
 public class CompanyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idEmpresa;
-    private String razaoSocial;
-    private String nomeFantasia;
+    private UUID idCompany;
+    private String corporateName;
+    private String fantasyName;
     @Column(unique = true)
     private String cnpj;
     private String email;
