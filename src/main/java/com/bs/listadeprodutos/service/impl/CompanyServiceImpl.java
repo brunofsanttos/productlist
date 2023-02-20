@@ -1,6 +1,7 @@
 package com.bs.listadeprodutos.service.impl;
 
 import com.bs.listadeprodutos.dto.CompanyDto;
+
 import com.bs.listadeprodutos.dto.StandardReturn;
 import com.bs.listadeprodutos.persistence.entity.CompanyEntity;
 import com.bs.listadeprodutos.persistence.repository.CompanyRepository;
@@ -28,11 +29,23 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public StandardReturn save(CompanyDto companyDto)throws Exception {
-        this.fieldValidation(companyDto);
-
         companyDto.setCnpj(textTreatment.CpfCnpjTreatment(companyDto.getCnpj()));
-
         CompanyEntity companyEntity = modelMapper.map(companyDto, CompanyEntity.class);
+
+        if(companyEntity.getIdCompany() == null){
+            if(companyRepository.existsByCorporateName(companyEntity.getCorporateName())){
+                throw new Exception(DADO_INVALIDO);
+            }
+
+            if(companyRepository.existsByEmail(companyEntity.getEmail())){
+                throw new Exception(ERRO_EMAIL);
+            }
+
+            if(companyRepository.existsByCnpj(companyEntity.getCnpj())){
+                throw new Exception(CNPJ_CADASTRADO);
+            }
+        }
+
         companyEntity = companyRepository.save(companyEntity);
 
         return new StandardReturn(SALVO, modelMapper.map(companyEntity, CompanyDto.class));
@@ -49,23 +62,5 @@ public class CompanyServiceImpl implements CompanyService {
                         .fromString(id)).get();
 
         return new StandardReturn(RETORNO_DA_CONSULTA, modelMapper.map(empresaEntity, CompanyDto.class));
-    }
-
-    private void fieldValidation(CompanyDto companyDto)throws Exception{
-        if(companyDto.getCnpj() == null || companyDto.getCnpj().isEmpty()){
-            throw new Exception(ERRO_NO_CNPJ);
-        }
-
-        if(companyDto.getCorporateName() == null || companyDto.getCorporateName().isEmpty()){
-            throw new Exception(ERRO_RAZAO_SOCIAL);
-        }
-
-        if(companyDto.getEmail() == null || companyDto.getEmail().isEmpty()){
-            throw new Exception(ERRO_EMAIL);
-        }
-
-        if(companyRepository.existsByCnpj(companyDto.getCnpj()) || companyRepository.existsByEmail(companyDto.getEmail()) || companyRepository.existsByCorporateName(companyDto.getCorporateName())){
-            throw new Exception(CADASTRO_EXISTENTE);
-        }
     }
 }
