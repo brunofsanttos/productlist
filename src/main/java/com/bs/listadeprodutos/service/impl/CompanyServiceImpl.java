@@ -63,4 +63,18 @@ public class CompanyServiceImpl implements CompanyService {
 
         return new StandardReturn(RETORNO_DA_CONSULTA, modelMapper.map(empresaEntity, CompanyDto.class));
     }
+
+    @Override
+    public StandardReturn findByCnpj(String cnpj) throws Exception {
+        if(!companyRepository.existsByCnpj(cnpj)){
+            throw new Exception(ERRO_NO_CNPJ);
+        }
+
+        CompanyEntity companyEntity = companyRepository
+                .findByCnpj(cnpj);
+
+        return new StandardReturn(
+                RETORNO_DA_CONSULTA,
+                modelMapper.map(companyEntity, CompanyDto.class));
+    }
 }

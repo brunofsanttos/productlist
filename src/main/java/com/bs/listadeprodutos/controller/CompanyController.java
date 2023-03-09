@@ -51,7 +51,7 @@ public class CompanyController {
         }
     }
 
-    //Todo: tratar erros
+
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity findById(@RequestParam(name = "idCompany") String idCompany){
         try{
@@ -66,6 +66,21 @@ public class CompanyController {
                 case CNPJ_CADASTRADO:
                 case OBRIGATORIO:
                 case DADO_INVALIDO:
+                    return ResponseEntity.status(400).body(error.getMessage());
+                default:
+                    return ResponseEntity.status(500).body(ERRO_INTERNO);
+            }
+        }
+    }
+
+
+    @RequestMapping(value = "/findByCnpj", method = RequestMethod.GET)
+    public ResponseEntity findByCnph(@RequestParam(name = "cnpj") String cnpj){
+        try{
+            return ResponseEntity.status(200).body(companyService.findByCnpj(cnpj));
+        }catch (Exception error){
+            switch (error.getMessage()){
+                case ERRO_NO_CNPJ:
                     return ResponseEntity.status(400).body(error.getMessage());
                 default:
                     return ResponseEntity.status(500).body(ERRO_INTERNO);
