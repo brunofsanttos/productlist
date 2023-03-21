@@ -2,6 +2,7 @@ package com.bs.listadeprodutos.service.impl;
 
 import com.bs.listadeprodutos.dto.ProductDto;
 import com.bs.listadeprodutos.dto.StandardReturn;
+import com.bs.listadeprodutos.persistence.entity.CompanyEntity;
 import com.bs.listadeprodutos.persistence.entity.ProductEntity;
 import com.bs.listadeprodutos.persistence.repository.CompanyRepository;
 import com.bs.listadeprodutos.persistence.repository.ProductRepository;
@@ -32,14 +33,17 @@ public class ProductServiceImpl implements ProductService {
     public StandardReturn save(ProductDto productDto) throws Exception {
         this.fieldValidation(productDto);
 
-        Boolean companyExists = companyRepository.existsById(UUID.fromString(productDto.getIdCompany()));
+        Optional<CompanyEntity> companyEntity = companyRepository.findById(UUID.fromString(productDto.getIdCompany()));
 
-        if (!companyExists) {
+        if (companyEntity.isEmpty()) {
             throw new Exception(EMPRESA_NAO_EXISTE);
         }
 
+        ProductEntity product = new ProductEntity(null, companyEntity.get(), productDto.getDescription(), productDto.getUnitPrice());
+
         ProductEntity productEntity = productRepository
-                .save(modelMapper.map(productDto, ProductEntity.class));
+                .save(product);
+
 
         return new StandardReturn(SALVO, modelMapper.map(productEntity, ProductDto.class));
     }
@@ -71,9 +75,6 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception(NAO_ENCONTRADO);
         }
 
-        if (productEntity.get().getIdCompany() != UUID.fromString(idCompany)) {
-            throw new Exception(NAO_PERTENCE);
-        }
 
         return new StandardReturn(RETORNO_DA_CONSULTA, modelMapper.map(productEntity.get(), ProductDto.class));
     }
@@ -84,14 +85,14 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception(ERRO_ID);
         }
 
-        Boolean companyIsExist = companyRepository
-                .existsById(UUID.fromString(idCompany));
+        Optional<CompanyEntity> company = companyRepository
+                .findById(UUID.fromString(idCompany));
 
-        if (!companyIsExist) {
+        if (company.isEmpty()) {
             throw new Exception(EMPRESA_NAO_EXISTE);
         }
 
-        List<ProductEntity> productEntityList = productRepository.findAllByIdCompany(UUID.fromString(idCompany));
+        List<ProductEntity> productEntityList = productRepository.findAllByCompany(company.get());
 
         if (productEntityList.isEmpty()) {
             throw new Exception(NAO_ENCONTRADO);
@@ -119,9 +120,6 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception(NAO_ENCONTRADO);
         }
 
-        if (productEntityOptional.get().getIdCompany() != UUID.fromString(idCompany)) {
-            throw new Exception(NAO_PERTENCE);
-        }
 
         productRepository.delete(productEntityOptional.get());
 

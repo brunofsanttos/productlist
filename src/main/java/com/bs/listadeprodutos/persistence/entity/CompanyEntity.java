@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "company")
@@ -22,4 +23,6 @@ public class CompanyEntity {
     @Column(unique = true)
     private String cnpj;
     private String email;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<ProductEntity> productList;
 }
