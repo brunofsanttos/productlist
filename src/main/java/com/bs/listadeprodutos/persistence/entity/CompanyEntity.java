@@ -25,4 +25,7 @@ public class CompanyEntity {
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private List<ProductEntity> productList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<UserTipeEntity> userTipeList;
 }
