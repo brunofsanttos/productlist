@@ -18,9 +18,7 @@ public class UserTipeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUserTipe;
-    @ManyToOne
-    @JoinColumn(name = "id_company")
-    private CompanyEntity company;
+
     private String descripton ;
 
     @ManyToMany

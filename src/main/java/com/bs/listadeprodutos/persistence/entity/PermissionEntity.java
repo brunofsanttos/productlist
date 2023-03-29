@@ -18,7 +18,12 @@ public class PermissionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPermission;
-   @ManyToMany(mappedBy = "permissions")
+
+    @ManyToOne
+    @JoinColumn(name = "id_company")
+    private CompanyEntity company;
+
+    @ManyToMany(mappedBy="permissions", cascade = CascadeType.ALL)
     private List<UserTipeEntity> userTipe;
 
     private String description;

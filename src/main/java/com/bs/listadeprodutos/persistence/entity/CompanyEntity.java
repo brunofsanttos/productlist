@@ -27,5 +27,5 @@ public class CompanyEntity {
     private List<ProductEntity> productList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    private List<UserTipeEntity> userTipeList;
+    private List<PermissionEntity> permissions;
 }
