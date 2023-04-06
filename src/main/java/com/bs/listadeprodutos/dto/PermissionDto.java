@@ -6,16 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@JsonSerialize
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonSerialize
-public class StandardReturn {
-    private String menssagen;
-    private Object object;
-
-    public StandardReturn(String menssagen) {
-        this.menssagen = menssagen;
-    }
+@Getter
+@Setter
+public class PermissionDto {
+    private String idPermission;
+    private String idCompany;
+    private String description;
+    private Boolean status;
 }
