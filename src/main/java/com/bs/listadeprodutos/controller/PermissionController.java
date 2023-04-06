@@ -3,6 +3,7 @@ package com.bs.listadeprodutos.controller;
 import com.bs.listadeprodutos.dto.PermissionDto;
 import com.bs.listadeprodutos.dto.StandardReturn;
 import com.bs.listadeprodutos.service.PermissionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import static com.bs.listadeprodutos.catalog.ErrorCatalog.*;
 @Controller
 @RequestMapping(value = "/api/v1/listproduct/permission")
 @Slf4j
+@Tag(name = "Permission")
 public class PermissionController {
     @Autowired
     private PermissionService permissionService;
