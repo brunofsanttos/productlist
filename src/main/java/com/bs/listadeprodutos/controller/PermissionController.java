@@ -15,9 +15,9 @@ import javax.validation.Valid;
 import static com.bs.listadeprodutos.catalog.ErrorCatalog.*;
 
 @Controller
-@RequestMapping(value = "/api/v1/listproduct/permission")
 @Slf4j
-@Tag(name = "Permission")
+@RequestMapping(value = "/api/v1/listproduct/permission")
+@Tag(name = "Permissions")
 public class PermissionController {
     @Autowired
     private PermissionService permissionService;

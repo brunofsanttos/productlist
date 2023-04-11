@@ -15,9 +15,9 @@ import javax.validation.Valid;
 import static com.bs.listadeprodutos.catalog.ErrorCatalog.*;
 
 @Controller
-@RequestMapping(value = "/api/v1/listproduct/product")
 @Slf4j
-@Tag(name = "Product")
+@RequestMapping(value = "/api/v1/listproduct/product")
+@Tag(name = "Products")
 public class ProductController {
     @Autowired
     private ProductService productService;

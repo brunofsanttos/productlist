@@ -82,12 +82,10 @@ public class CompanyController {
         try{
             return ResponseEntity.status(200).body(companyService.findByCnpj(cnpj));
         }catch (Exception error){
-            switch (error.getMessage()){
-                case ERRO_NO_CNPJ:
-                    return ResponseEntity.status(400).body(new StandardReturn(error.getMessage()));
-                default:
-                    return ResponseEntity.status(500).body(new StandardReturn(ERRO_INTERNO));
+            if (error.getMessage().equals(ERRO_NO_CNPJ)) {
+                return ResponseEntity.status(400).body(new StandardReturn(error.getMessage()));
             }
+            return ResponseEntity.status(500).body(new StandardReturn(ERRO_INTERNO));
         }
     }
 }
